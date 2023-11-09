@@ -1,0 +1,24 @@
+version: "3.8"
+
+
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: authentication_service_gin
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: userdb 
+    volumes:
+      - /docker/authentication_service_gin:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - authentication_service_gin_network
+
+
+
+networks:
+  authentication_service_gin_network:
+    driver: bridge
