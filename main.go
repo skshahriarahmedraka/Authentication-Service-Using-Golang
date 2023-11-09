@@ -5,7 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/init"
+	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/config"
+	// "github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/init"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/routes"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,8 @@ import (
 
 func init() {
 
-	init.LoadEnvVars()
+	config.LoadEnvVars()
+	config.LoadAdmin()
 
 }
 

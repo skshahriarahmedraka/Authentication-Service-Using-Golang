@@ -2,7 +2,7 @@ package handler
 
 import (
 	// "app/LogError"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/model"
+	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
 	// "app/token"
 	// "context"
 	"fmt"

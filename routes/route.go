@@ -17,7 +17,12 @@ func Routes(r *gin.Engine) {
 	fmt.Println("🚀 ~ file: WithoutAuth.go ~ line 13 ~ funcRouteWithoutAuth ~ RouteWithoutAuth  ", H)
 	
 	r.GET("/", H.Home())
-	r.POST("/user/login", H.Login())
-	r.POST("/user/register", H.Register())
-	
+	r.POST("/login", H.Login())
+	r.POST("/register", H.Register())
+	r.GET("/logout", H.Logout())
+	// r.GET("/:id", H.UserProfileData())
+	// r.POST("/update", H.Update())
+	// r.POST("/delete", H.Delete())
+	// r.GET("/alluser", H.AllUser())
+	// r.GET("/admindashboard", H.AdminDashboard())
 }
