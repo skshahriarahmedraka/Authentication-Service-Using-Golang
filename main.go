@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/init"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/router"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/routes"
 
 	"github.com/gin-gonic/gin"
