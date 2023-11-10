@@ -44,8 +44,8 @@ jobs:
       run: go test -v ./...
     
     # Database logs 
-    - name: Database logs
-      run: docker-compose logs
+    # - name: Database logs
+    #   run: docker-compose logs
       
     # Run vet 
     - name: Run vet
