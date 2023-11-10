@@ -23,7 +23,7 @@ jobs:
     - name: Start containers
       run: |
         cd deployments/docker
-        docker-compose -f "docker-compose.yml"  up -d --build
+        docker-compose -f "docker-compose.yaml"  up -d --build
         
     
       # Install all the dependencies
