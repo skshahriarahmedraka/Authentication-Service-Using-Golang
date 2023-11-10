@@ -1,28 +1,16 @@
 package handler
 
 import (
-	// "app/LogError"
 	"context"
-	"os"
-	"time"
-
+	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
-
-	// "app/token"
-	// "context"
-	"fmt"
 	"net/http"
-
-	// "os"
-	// "time"
-
-	"github.com/gin-gonic/gin"
-	// "github.com/golang-jwt/jwt/v4"
-	// "go.mongodb.org/mongo-driver/bson"
-	// "golang.org/x/crypto/bcrypt"
+	"os"
+	"time"
 )
 
 func (H *DatabaseCollections) Login() gin.HandlerFunc {
@@ -32,24 +20,12 @@ func (H *DatabaseCollections) Login() gin.HandlerFunc {
 		c.Request.Header.Set("Content-Type", "application/json")
 		c.Request.Header.Set("Access-Control-Allow-Credentials", "true")
 
-		// var user model.LoginModel
-		// // var dbUser model.UserData
-
-		// err := c.BindJSON(&user)
-		// if err != nil {
-		// 	// LogError.LogError("❌🔥 error in c.bindjson() ", err)
-		// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-
-		// 	return
-		// }
-		// fmt.Println("🚀", user)
-
 		var loginUser model.LoginModel
 		var dbUser model.UserData
 
 		err := c.BindJSON(&loginUser)
 		if err != nil {
-			fmt.Println("❌🔥 error in c.bindjson() ", err)
+			logger.Error().Msg("❌🔥 Error message :" + err.Error())
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
 			return
@@ -62,7 +38,7 @@ func (H *DatabaseCollections) Login() gin.HandlerFunc {
 		// SEARCH EMAIL
 		err = H.Mongo.Collection(os.Getenv("USERDATA_COL")).FindOne(ctx, bson.M{"email": loginUser.Email}).Decode(&dbUser)
 		if err != nil {
-			fmt.Println("❌🔥 error in mongodb connection  ", err)
+			logger.Error().Msg("❌🔥 Error message :" + err.Error())
 			c.JSON(http.StatusBadRequest, gin.H{"error": "No user Found"})
 			return
 		}
@@ -71,7 +47,7 @@ func (H *DatabaseCollections) Login() gin.HandlerFunc {
 		dbPass := []byte(dbUser.Password)
 		passErr := bcrypt.CompareHashAndPassword(dbPass, userPass)
 		if passErr != nil {
-			fmt.Println("❌🔥 error in bcrypt error ", err)
+			logger.Error().Msg("❌🔥 Error message :" + passErr.Error())
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
@@ -92,12 +68,12 @@ func (H *DatabaseCollections) Login() gin.HandlerFunc {
 		tokenString, err := token.SignedString([]byte(os.Getenv("COOKIE_SECRET_JWT_AUTH1")))
 
 		if err != nil {
-			fmt.Println("❌🔥 error in StatusInternalServerError token generation  ", err)
+			logger.Error().Msg("❌🔥 Error message :" + err.Error())
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error in StatusInternalServerError token generation"})
 
 			return
 		}
-	
+
 		//  noAUTH1 GENEGRATION
 		expirationTime2 := time.Now().Add(time.Hour * 1000)
 		claims2 := &model.TokenClaims{
@@ -114,17 +90,16 @@ func (H *DatabaseCollections) Login() gin.HandlerFunc {
 		tokenString2, err := token2.SignedString([]byte(os.Getenv("COOKIE_SECRET_JWT_AUTH2")))
 
 		if err != nil {
-			fmt.Println("❌🔥 error in StatusInternalServerError token generation  ", err)
+			logger.Error().Msg("❌🔥 Error message :" + err.Error())
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error in StatusInternalServerError token generation"})
-
 			return
 		}
 
-		c.SetCookie("Auth1",tokenString,60*60*24,"/",os.Getenv("DOMAIN_ADDR"),false , true)
-		c.SetCookie("Refresh",tokenString2,60*60*24*2,"/",os.Getenv("DOMAIN_ADDR"),false , true)
+		c.SetCookie("Auth1", tokenString, 60*60*24, "/", os.Getenv("DOMAIN_ADDR"), false, true)
+		c.SetCookie("Refresh", tokenString2, 60*60*24*2, "/", os.Getenv("DOMAIN_ADDR"), false, true)
 
 		fmt.Println("😍 Login Successfull")
-		c.JSON(http.StatusOK, gin.H{"id":dbUser.ID.Hex(),"message": "Login Successfull"})
+		c.JSON(http.StatusOK, gin.H{"id": dbUser.ID.Hex(), "message": "Login Successfull"})
 
 	}
 }

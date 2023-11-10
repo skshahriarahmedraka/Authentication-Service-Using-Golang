@@ -1,0 +1,70 @@
+name: Unit Test
+
+on:
+  push:
+    branches:
+      - "*"
+  # pull_request:
+  #   branches:
+  #     - "*"
+jobs:
+  # The "build" workflow  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Setup Go
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+    # Setup docker for database
+    # - name: Start containers
+    #   run: |
+    #     cp .env.example .env
+    #     docker-compose -f "docker-compose.yml" --env-file .env.test up -d --build
+        
+    
+      # Install all the dependencies
+    - name: Install dependencies
+      run: |
+        go version
+        go get -u golang.org/x/lint/golint
+        
+    # Run build of the application
+    - name: Run Build
+      run: |
+        go mod tidy
+        go mod vendor
+        go build -v ./...
+    
+    # Run testing on the code
+    - name: Run Test
+      run: go test -v ./...
+    
+    # Database logs 
+    # - name: Database logs
+    #   run: docker-compose logs
+      
+    # Run vet 
+    - name: Run vet
+      run: |
+        go vet .
+      
+    # Run lint
+    - name: golangci-lint
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+        golangci-lint run ./...
+    
+    
+    # Send slack notification
+    # - name: Send slack notification
+    #   uses: 8398a7/action-slack@v3
+    #   with:
+    #     status: ${{ job.status }}
+    #     fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+    #   if: always() # Pick up events even if the job fails or is canceled.

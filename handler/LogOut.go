@@ -1,24 +1,18 @@
 package handler
 
 import (
-	// "html/template"
-
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
-	// "time"
-	// "bitbucket.org/skshahriarahmed/sh_ra/logs"
-	// "github.com/gin-contrib/sessions"
 )
 
-func (H *DatabaseCollections)Logout() gin.HandlerFunc {
+func (H *DatabaseCollections) Logout() gin.HandlerFunc {
 	return func(c *gin.Context) {
-	
-		c.SetCookie("Auth1","",-1,"/",os.Getenv("DOMAIN_ADDR"),false , true)
-		c.SetCookie("Refresh","",-1,"/",os.Getenv("DOMAIN_ADDR"),false , true)
 
+		c.SetCookie("Auth1", "", -1, "/", os.Getenv("DOMAIN_ADDR"), false, true)
+		c.SetCookie("Refresh", "", -1, "/", os.Getenv("DOMAIN_ADDR"), false, true)
+		logger.Info().Msg("📢 Info message :" + "user logged out")
 		c.Redirect(http.StatusTemporaryRedirect, "/public")
-	
+
 	}
 }
