@@ -9,6 +9,6 @@ import (
 
 func (H *DatabaseCollections)Home() gin.HandlerFunc {
 	return func(c *gin.Context){
-		c.JSON(http.StatusOK,"Home comming . . . ")
+		c.JSON(http.StatusOK,"Public Home  . . . ")
 	}
 }

@@ -16,13 +16,13 @@ func Routes(r *gin.Engine) {
 	H := monodb.DatabaseInitialization(DB2)
 	fmt.Println("🚀 ~ file: WithoutAuth.go ~ line 13 ~ funcRouteWithoutAuth ~ RouteWithoutAuth  ", H)
 	
-	r.GET("/", H.Home())
+	r.GET("/public", H.Home())
 	r.POST("/login", H.Login())
 	r.POST("/register", H.Register())
 	r.GET("/logout", H.Logout())
-	// r.GET("/:id", H.UserProfileData())
+	r.GET("/:id", H.UserData())
 	// r.POST("/update", H.Update())
 	// r.POST("/delete", H.Delete())
-	// r.GET("/alluser", H.AllUser())
+	r.GET("/alluser", H.AllUserData())
 	// r.GET("/admindashboard", H.AdminDashboard())
 }

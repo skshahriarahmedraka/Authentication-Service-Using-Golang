@@ -1,3 +1,3 @@
 package config
 
-var AdminEmails  map[string]bool 
+var AdminEmails  map[string]bool = make(map[string]bool)

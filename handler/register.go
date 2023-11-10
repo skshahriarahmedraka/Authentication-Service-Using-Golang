@@ -10,6 +10,8 @@ import (
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/config"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	// "go.mongodb.org/mongo-driver/bson/primitive"
 	"github.com/golang-jwt/jwt/v4"
 	// "app/token"
@@ -55,6 +57,7 @@ func (H *DatabaseCollections)Register() gin.HandlerFunc {
 			user.AccountType = "normal"
 		}
 		
+		user.ID = primitive.NewObjectID()
 		user.Firstname = regUser.Firstname
 		user.Lastname = regUser.Lastname
 		user.Email = regUser.Email
@@ -146,7 +149,7 @@ func (H *DatabaseCollections)Register() gin.HandlerFunc {
 		}
 
 		c.SetCookie("Auth1",tokenString,60*60*24,"/",os.Getenv("DOMAIN_ADDR"),false , true)
-		c.SetCookie("refresh",tokenString2,60*60*24*2,"/",os.Getenv("DOMAIN_ADDR"),false , true)
+		c.SetCookie("Refresh",tokenString2,60*60*24*2,"/",os.Getenv("DOMAIN_ADDR"),false , true)
 		fmt.Println("😍 Register Successfull")
 
 		c.JSON(http.StatusOK,gin.H{"message":"successfully signed up"})
