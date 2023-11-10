@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ai-farming
+  name: Authentication-Service-Using-Golang
