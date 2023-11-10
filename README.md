@@ -7,6 +7,7 @@
   ***solution :***
   
   POST  `/register`
+  
   - request 
   
   - ```
@@ -25,8 +26,6 @@
         "message": "successfully signed up"
     }
     ```
-    
-    
 
 **User Authentication:**
 
@@ -35,6 +34,7 @@
   ***solution :***
   
   POST `/login`
+  
   - request 
   
   - ```
@@ -52,14 +52,15 @@
         "message": "Login Successfull"
     }
     ```
+
 - Implement token-based authentication using JWT for secure user authentication. Provide a unique token upon successful authentication.
+
 - Ensure handling of JWT refresh tokens.
   
   ***Solution :*** 
+  
   - **Auth** and **Refresh**  ,  JWT  token is used for  authentication and authorization
   - **Auth** token used for  user authentication and **Refresh** token is used for keep the cookie up to date  
-
-
 
 **User Roles and Permissions:**
 
@@ -72,6 +73,7 @@
   user can access their profile info using their **ID** , 
   
   **ONLY ADMIN**  can retrive any users data using **ID**
+  
   - request 
   
   - ```
@@ -104,6 +106,7 @@
   GET `/alluser` 
   
   ONLY ADMIN can access this route 
+  
   - request 
   
   - ```
@@ -139,9 +142,11 @@
   
   - 
 
-**Instructions:**
+**miscellaneous:**
 
 - For Loggin   `github.com/rs/zerolog`   is used 
 - testing code for all route  `handler/handler_test.go`
-
-
+- swagger documentation 
+- Postman collection  `postman_collection.json`
+- Dockerfile for build docker image
+- Github action for CI/CD `.github/workflows/unit_test.yaml`
