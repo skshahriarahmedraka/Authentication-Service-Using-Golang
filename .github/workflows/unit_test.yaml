@@ -20,10 +20,10 @@ jobs:
       with:
         go-version: '1.21'
     # Setup docker for database
-    # - name: Start containers
-    #   run: |
-    #     cp .env.example .env
-    #     docker-compose -f "docker-compose.yml" --env-file .env.test up -d --build
+    - name: Start containers
+      run: |
+        cd deployments/docker
+        docker-compose -f "docker-compose.yml"  up -d --build
         
     
       # Install all the dependencies
@@ -44,8 +44,8 @@ jobs:
       run: go test -v ./...
     
     # Database logs 
-    # - name: Database logs
-    #   run: docker-compose logs
+    - name: Database logs
+      run: docker-compose logs
       
     # Run vet 
     - name: Run vet
