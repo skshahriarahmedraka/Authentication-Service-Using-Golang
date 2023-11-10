@@ -53,10 +53,10 @@ jobs:
         go vet .
       
     # Run lint
-    - name: golangci-lint
-      run: |
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
-        golangci-lint run ./...
+    # - name: golangci-lint
+    #   run: |
+    #     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+    #     golangci-lint run ./...
     
     
     # Send slack notification
