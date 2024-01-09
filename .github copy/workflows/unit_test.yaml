@@ -8,57 +8,61 @@ on:
   #   branches:
   #     - "*"
 jobs:
-  # The "build" workflow  
+  # The "build" workflow
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
     # Setup Go
     - name: Setup Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21'
+        go-version: "1.21"
     # Setup docker for database
-    - name: Start containers
-      run: |
-        cd deployments/docker
-        docker-compose -f "docker-compose.yaml"  up -d --build
-        
-    
-      # Install all the dependencies
+    # - name: Start containers
+    #   run: |
+    #     cd deployments/docker
+    #     docker-compose -f "docker-compose.yaml"  up -d --build
+
+    # Install all the dependencies
     - name: Install dependencies
       run: |
         go version
         go get -u golang.org/x/lint/golint
-        
+        go get -u honnef.co/go/tools/cmd/staticcheck 
+        go get -u golang.org/x/tools/cmd/goimports
+
     # Run build of the application
     - name: Run Build
       run: |
         go mod tidy
         go mod vendor
         go build -v ./...
-    
+
     # Run testing on the code
     - name: Run Test
       run: go test -v ./...
-    
-    # Database logs 
+
+    # Database logs
     # - name: Database logs
     #   run: docker-compose logs
-      
-    # Run vet 
+
+    # Run vet
     - name: Run vet
       run: |
         go vet .
-      
+
     # Run lint
-    # - name: golangci-lint
-    #   run: |
-    #     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
-    #     golangci-lint run ./...
-    
-    
+    - name: golangci-lint
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+        golangci-lint run ./...
+        goimports -w . && staticcheck ./...
+    - name: Check Golang sources with Aligo
+      uses: essentialkaos/aligo-action@v2
+      with:
+        files: ./...
+
     # Send slack notification
     # - name: Send slack notification
     #   uses: 8398a7/action-slack@v3
