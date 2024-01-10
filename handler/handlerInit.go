@@ -1,11 +1,12 @@
 package handler
 
 import (
-	"github.com/rs/zerolog"
-	"go.mongodb.org/mongo-driver/mongo"
 	"os"
 	"runtime/debug"
 	"time"
+
+	"github.com/rs/zerolog"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var buildInfo *debug.BuildInfo

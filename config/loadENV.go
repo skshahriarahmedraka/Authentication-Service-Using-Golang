@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 )
+
 var buildInfo *debug.BuildInfo
 var logger zerolog.Logger
 

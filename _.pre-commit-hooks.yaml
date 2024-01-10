@@ -1,0 +1,62 @@
+- id: go-fmt
+  name: go-fmt
+  description: Formats Go code with gofmt.
+  entry: gofmt -s -w
+  language: golang
+  pass_filenames: true
+  types: [go]
+
+- id: go-vet
+  name: go-vet
+  description: Examines Go source code and reports suspicious constructs.
+  entry: go vet
+  language: golang
+  pass_filenames: true
+  types: [go]
+
+# - id: go-lint
+#   name: go-lint
+#   description: Golint is a linter for Go source code.
+#   entry: golint
+#   language: golang
+#   pass_filenames: true
+#   types: [go]
+
+- id: go-imports
+  name: go-imports
+  description: Tool that updates your Go import lines, adding missing ones and removing unreferenced ones.
+  entry: goimports -w
+  language: golang
+  pass_filenames: true
+  types: [go]
+
+# - id: go-cyclo
+#   name: go-cyclo
+#   description: Computes and checks the cyclomatic complexity of functions.
+#   entry: gocyclo -over 15
+#   language: golang
+#   pass_filenames: true
+#   types: [go]
+
+- id: go-unit-tests
+  name: go-unit-tests
+  description: Runs the Go unit tests.
+  entry: go test
+  language: golang
+  pass_filenames: true
+  types: [go]
+
+- id: go-build
+  name: go-build
+  description: Compiles your packages and dependencies.
+  entry: go build
+  language: golang
+  pass_filenames: true
+  types: [go]
+
+# - id: staticcheck
+#   name: staticcheck
+#   description: Staticcheck is a go static analysis tool
+#   entry: staticcheck ./...
+#   language: golang
+#   pass_filenames: false

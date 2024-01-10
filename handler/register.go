@@ -3,17 +3,18 @@ package handler
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"os"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/config"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
+	model "github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
-	"os"
-	"time"
 )
 
 var Validate = validator.New()

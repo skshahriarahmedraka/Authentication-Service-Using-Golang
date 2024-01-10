@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
 	"github.com/gin-gonic/gin"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/config"
 	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/pkg/monodb"
@@ -13,18 +14,17 @@ import (
 )
 
 func TestALLRoute(t *testing.T) {
-	
+
 	config.LoadEnvVars()
 	config.AdminEmails = map[string]bool{
 		"skshahra@gmail.com": true,
-		"skraka@gmail.com" : true ,
-		"raka@gmail.com" : true ,
+		"skraka@gmail.com":   true,
+		"raka@gmail.com":     true,
 	}
 	r := gin.New()
-	
+
 	r.Use(gin.Logger())
 
-	
 	mongoConn := monodb.MongodbConnection()
 	H := monodb.DatabaseInitialization(mongoConn)
 
@@ -35,8 +35,6 @@ func TestALLRoute(t *testing.T) {
 	r.GET("/logout", H.Logout())
 	r.GET("/:id", H.UserData())
 	r.GET("/alluser", H.AllUserData())
-
-
 
 	// TEST /public ROUTE
 	publicResponse := performPublicRequest(t, r)
@@ -51,14 +49,14 @@ func TestALLRoute(t *testing.T) {
 	assert.Equal(t, http.StatusOK, loginResponse.Code)
 
 	var loginData map[string]interface{}
-    err := json.Unmarshal(loginResponse.Body.Bytes(), &loginData)
+	err := json.Unmarshal(loginResponse.Body.Bytes(), &loginData)
 	assert.NoError(t, err)
 	id, ok := loginData["id"].(string)
 	if !ok {
 		t.Fatal("❌🔥 error in c.bindjson() ")
 	}
 	// TEST /:id ROUTE
-	UserDataResponse := performUserdataRequest(t, r,id, loginResponse)
+	UserDataResponse := performUserdataRequest(t, r, id, loginResponse)
 	assert.Equal(t, http.StatusOK, UserDataResponse.Code)
 
 	// TEST /alluser ROUTE  (only for admin)
@@ -79,7 +77,7 @@ func performRegisterRequest(t *testing.T, r *gin.Engine) *httptest.ResponseRecor
 		"firstname": "sk",
 		"lastname": "raka",
 		"email": "skshahra@gmail.com",
-		"password": "111187" 
+		"password": "111187"
 	}`)
 	req, err := http.NewRequest(http.MethodPost, "/register", bytes.NewBuffer(registerData))
 	assert.NoError(t, err)
@@ -91,7 +89,7 @@ func performLoginRequest(t *testing.T, r *gin.Engine) *httptest.ResponseRecorder
 	w := httptest.NewRecorder()
 	loginData := []byte(`{
 		"email": "skshahra@gmail.com",
-		"password": "111187" 
+		"password": "111187"
 	}`)
 	req, err := http.NewRequest(http.MethodPost, "/login", bytes.NewBuffer(loginData))
 	assert.NoError(t, err)
@@ -99,7 +97,7 @@ func performLoginRequest(t *testing.T, r *gin.Engine) *httptest.ResponseRecorder
 	return w
 }
 
-func performUserdataRequest(t *testing.T, r *gin.Engine,id string, loginResponse *httptest.ResponseRecorder) *httptest.ResponseRecorder {
+func performUserdataRequest(t *testing.T, r *gin.Engine, id string, loginResponse *httptest.ResponseRecorder) *httptest.ResponseRecorder {
 	w := httptest.NewRecorder()
 	req, err := http.NewRequest(http.MethodGet, "/"+id, nil)
 	assert.NoError(t, err)

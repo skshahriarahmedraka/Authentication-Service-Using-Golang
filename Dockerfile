@@ -11,7 +11,7 @@ RUN go mod download
 COPY . .
 # RUN mkdir -p /builder/env/
 # COPY /env/.env  /builder/env/.env
-COPY .env /builder/.env 
+COPY .env /builder/.env
 RUN go build -o /builder/main /builder/main.go
 RUN upx -9 /builder/main
 

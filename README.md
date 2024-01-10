@@ -3,24 +3,24 @@
 **User Registration:**
 
 - Implemention user registration, allowing users to sign up with their email address and password.
-  
+
   ***solution :***
-  
+
   POST  `/register`
-  
-  - request 
-  
+
+  - request
+
   - ```
     {
         "firstname": "sk",
         "lastname": "ssar",
         "email": "ssar@gmail.com",
-        "password": "111187" 
+        "password": "111187"
     }
     ```
-  
-  - response 
-  
+
+  - response
+
   - ```
     {
         "message": "successfully signed up"
@@ -30,22 +30,22 @@
 **User Authentication:**
 
 - Develop user login functionality using email and password
-  
+
   ***solution :***
-  
+
   POST `/login`
-  
-  - request 
-  
+
+  - request
+
   - ```
     {
         "email": "skshahra@gmail.com",
-        "password": "111187" 
+        "password": "111187"
     }
     ```
-  
-  - response 
-  
+
+  - response
+
   - ```
     {
         "id": "654d046d5b494b47d7705481",
@@ -56,32 +56,32 @@
 - Implement token-based authentication using JWT for secure user authentication. Provide a unique token upon successful authentication.
 
 - Ensure handling of JWT refresh tokens.
-  
-  ***Solution :*** 
-  
+
+  ***Solution :***
+
   - **Auth** and **Refresh**  ,  JWT  token is used for  authentication and authorization
-  - **Auth** token used for  user authentication and **Refresh** token is used for keep the cookie up to date  
+  - **Auth** token used for  user authentication and **Refresh** token is used for keep the cookie up to date
 
 **User Roles and Permissions:**
 
 - Implement role-based access control (RBAC) to assign predefined roles (e.g., user, admin) to users. Note that CRUD operations are not required for this task.
-  
+
   ***solution:***
-  
+
   GET `/:id`
-  
-  user can access their profile info using their **ID** , 
-  
+
+  user can access their profile info using their **ID** ,
+
   **ONLY ADMIN**  can retrive any users data using **ID**
-  
-  - request 
-  
+
+  - request
+
   - ```
     GET localhost:8080/654d046d5b494b47d7705481
     ```
-  
-  - response 
-  
+
+  - response
+
   - ```
     {
         "_id": "654d046d5b494b47d7705481",
@@ -94,27 +94,27 @@
         "accounttype": "admin"
     }
     ```
-  
-  - 
+
+  -
 
 **Another** **Demo Service:**
 
 - Create a demo service for authenticated users that allows them to retrieve lists of data arrays.
-  
+
   ***solution :***
-  
-  GET `/alluser` 
-  
-  ONLY ADMIN can access this route 
-  
-  - request 
-  
+
+  GET `/alluser`
+
+  ONLY ADMIN can access this route
+
+  - request
+
   - ```
     GET  localhost:8080/alluser
     ```
-  
-  - Response 
-  
+
+  - Response
+
   - ```
     [
         {
@@ -139,14 +139,14 @@
         }
     ]
     ```
-  
-  - 
+
+  -
 
 **miscellaneous:**
 
-- For Loggin   `github.com/rs/zerolog`   is used 
+- For Loggin   `github.com/rs/zerolog`   is used
 - testing code for all route  `handler/handler_test.go`
-- swagger documentation 
+- swagger documentation
 - Postman collection  `postman_collection.json`
 - Dockerfile for build docker image
 - Github action for CI/CD `.github/workflows/unit_test.yaml`

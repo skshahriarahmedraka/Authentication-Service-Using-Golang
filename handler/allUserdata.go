@@ -4,15 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/pkg/authentication"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
+	model "github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
+	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/pkg/authentication"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func (H *DatabaseCollections) AllUserData() gin.HandlerFunc {

@@ -2,8 +2,9 @@ package authentication
 
 import (
 	"os"
+
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
+	model "github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
 )
 
 func ValidateJWT(s string) (claims *model.TokenClaims, msg string) {

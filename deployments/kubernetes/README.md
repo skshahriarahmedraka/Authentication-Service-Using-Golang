@@ -2,11 +2,11 @@
 
 ### step 1 : Create AKS Cluster
 
-create a kubernetes cluster inside azure kubernetes  service 
+create a kubernetes cluster inside azure kubernetes  service
 
 ### step 2:
 
-authenticate azure kubernetes cluster from your local pc 
+authenticate azure kubernetes cluster from your local pc
 
 here , resource Group = aifarm1
 
@@ -28,7 +28,7 @@ helm repo update && \
 helm install ingress-nginx ingress-nginx/ingress-nginx
 ```
 
-check the ingress service 
+check the ingress service
 
 ```
  kubectl get services ingress-nginx-controller
@@ -46,7 +46,7 @@ kubectl apply -f namespace.yaml
 kubectl get all --namespace ai-farming
 
 ```
-### deploy applications 
+### deploy applications
 ```
 kubectl apply -y ./applications/
 kubectl apply -y ./ingress/

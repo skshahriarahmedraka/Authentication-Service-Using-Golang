@@ -8,7 +8,7 @@ on:
   #   branches:
   #     - "*"
 jobs:
-  # The "build" workflow  
+  # The "build" workflow
   build:
     runs-on: ubuntu-latest
     steps:
@@ -20,50 +20,51 @@ jobs:
       with:
         go-version: '1.21'
     # Setup docker for database
- 
+
     - name: Run Gosec Security Scanner
       uses: securego/gosec@master
       with:
         args: ./...
+
     - name: Start containers
       run: |
         cd deployments/docker
         docker-compose -f "docker-compose.yaml"  up -d --build
-        
-    
+
+
       # Install all the dependencies
     - name: Install dependencies
       run: |
         go version
         go get -u golang.org/x/lint/golint
-        
+
     # Run build of the application
     - name: Run Build
       run: |
         go mod tidy
         go mod vendor
         go build -v ./...
-    
+
     # Run testing on the code
     - name: Run Test
       run: go test -v ./...
-    
-    # Database logs 
+
+    # Database logs
     # - name: Database logs
     #   run: docker-compose logs
-      
-    # Run vet 
+
+    # Run vet
     - name: Run vet
       run: |
         go vet .
-      
+
     # Run lint
     # - name: golangci-lint
     #   run: |
     #     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
     #     golangci-lint run ./...
-    
-    
+
+
     # Send slack notification
     # - name: Send slack notification
     #   uses: 8398a7/action-slack@v3

@@ -3,15 +3,16 @@ package handler
 import (
 	"context"
 	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
-	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/pkg/authentication"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
+	model "github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/models"
+	"github.com/skshahriarahmedraka/Authentication-Service-Using-Golang/pkg/authentication"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (H *DatabaseCollections) UserData() gin.HandlerFunc {

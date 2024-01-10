@@ -24,6 +24,7 @@ const (
 	// fails.
 	exitFail = 1
 )
+
 func init() {
 
 	config.LoadEnvVars()
@@ -54,11 +55,9 @@ func init() {
 // 	//  SET MODE TO RELEASE
 // 	gin.SetMode(gin.ReleaseMode)
 
-
 // 	fmt.Println("🚀✨ Api is started ...")
 
 // 	r := gin.New()
-	
 
 // 	r.Use(gin.Logger())
 
@@ -71,7 +70,6 @@ func init() {
 
 // }
 
-
 func main() {
 	if err := run(os.Args, os.Stdout); err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
@@ -80,7 +78,6 @@ func main() {
 }
 
 func run(args []string, stdout io.Writer) error {
-	
 
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
@@ -113,6 +110,6 @@ func run(args []string, stdout io.Writer) error {
 		log.Fatalf("HTTP shutdown error: %v", err)
 	}
 	log.Println("Graceful shutdown complete.")
-	
+
 	return nil
 }
